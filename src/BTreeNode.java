@@ -10,7 +10,7 @@ public class BTreeNode {
 	BTreeNode(int t, BTreeNode parent ){
 		this.t=t;
 		this.parent= parent;
-		
+        keys = new String[2*t - 1];
 	}
 	
 }
