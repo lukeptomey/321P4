@@ -5,6 +5,6 @@ public class BTree {
 
 public BTree(int order){
     this.order=order;
-    root = new BTreeNode(order,null);
+    root = new BTreeNode(order);
     }
 }

@@ -3,19 +3,21 @@
  * @author Luke Ptomey
  * BTree Node object that will make up BTree
  */
+import java.util.Arrays;
 public class BTreeNode {
-	String[] keys; // An array of key values
+	BTreeObject[] keys; // An array of key values
     int t; // Minimum degree 
-    BTreeNode children[] ; // An array of child pointers 
+    long children[] ; // An array of child pointers 
     int n; // Current number of keys 
     boolean leaf; // Whether node is leaf
-    BTreeNode parent;// Parent Node
+    int onlocation; // location of node in file
 
-	BTreeNode(int t, BTreeNode parent ){
+	BTreeNode(int t ){
+       
 		this.t=t;
-		this.parent= parent;
-        keys = new String[2*t - 1]; //key values
-        children = new BTreeNode [2*t]; //references
+        keys = new BTreeObject[2*t - 1]; //key values
+        children = new long [2*t]; //references
+        Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
         n =0;
 
@@ -25,7 +27,7 @@ public class BTreeNode {
  * @param index
  * @return key value
  */
-    public String getValue (int index){
+    public BTreeObject getValue (int index){
         return keys [index];
     }
     /**
@@ -33,7 +35,7 @@ public class BTreeNode {
      * @param index
      * @return child node
      */
-    public BTreeNode getChild(int index){
+    public long getChild(int index){
         return children[index];
     }
     /**
@@ -42,6 +44,9 @@ public class BTreeNode {
      */
     public void setIfLeaf(boolean statement){
         leaf=statement;
+    }
+    public String printInfo(){
+        return "nothing yet";
     }
 
 
