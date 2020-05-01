@@ -7,10 +7,10 @@ import java.util.Arrays;
 public class BTreeNode {
 	BTreeObject[] keys; // An array of key values
     int t; // Minimum degree 
-    BTreeNode children[] ; // An array of child pointers 
+    Long children[] ; // An array of child pointers 
     int n; // Current number of keys 
     boolean leaf; // Whether node is leaf
-    int onlocation; // location of node in file
+    Long ownLocation; // location of node in file
 
 	BTreeNode(int t ){
        
