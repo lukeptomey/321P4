@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class BTreeNode {
 	BTreeObject[] keys; // An array of key values
     int t; // Minimum degree 
-    long children[] ; // An array of child pointers 
+    BTreeNode children[] ; // An array of child pointers 
     int n; // Current number of keys 
     boolean leaf; // Whether node is leaf
     int onlocation; // location of node in file
@@ -16,7 +16,7 @@ public class BTreeNode {
        
 		this.t=t;
         keys = new BTreeObject[2*t - 1]; //key values
-        children = new long [2*t]; //references
+        children = new BTreeNode [2*t]; //references
         Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
         n =0;
@@ -35,7 +35,7 @@ public class BTreeNode {
      * @param index
      * @return child node
      */
-    public long getChild(int index){
+    public BTreeNode getChild(int index){
         return children[index];
     }
     /**
