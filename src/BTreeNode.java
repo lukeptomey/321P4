@@ -5,29 +5,31 @@
  */
 import java.util.Arrays;
 public class BTreeNode {
-	BTreeObject[] keys; // An array of key values
-    int t; // Minimum degree 
+	Long[] keys; // An array of key values
+    int degree; // Minimum degree 
     Long children[] ; // An array of child pointers 
-    int n; // Current number of keys 
     boolean leaf; // Whether node is leaf
-    Long ownLocation; // location of node in file
+    Long location; // location of node in file
+    int numbKeys; //number of keys
+    int numbChildren; //numberofChildren
 
-	BTreeNode(int t ){
+	BTreeNode(Long location, int degree ){
        
-		this.t=t;
-        keys = new BTreeObject[2*t - 1]; //key values
-        children = new Long [2*t]; //references
+		this.degree=degree;
+        keys = new Long[2*degree - 1]; 
+        children = new Long [2*degree]; 
         Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
-        n =0;
-
+        this.location =location;
+        numbKeys=0;
+        numbChildren=0;
     }
 /**
  * Gets value of key
  * @param index
  * @return key value
  */
-    public BTreeObject getValue (int index){
+    public long getValue (int index){
         return keys [index];
     }
     /**

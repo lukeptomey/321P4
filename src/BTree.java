@@ -19,15 +19,14 @@ public BTree(int order){
      * @param BTree
      * @param key to be inserted
      */
-    public void insert(BTree tree, Long key){
-    BTreeNode start = tree.root;
-    if(start.n == 2 *order-1){
+    public void insert( Long key){
+    if(root.numbChildren== 2 *order-1){
        BTreeNode s= new BTreeNode(order);
-       tree.root=s;
+       this.root=s;
        s.leaf=false;
        s.n=0;
        s.children[0]=start.ownLocation;
-       split(s,1);
+       split(s,0,start);
        insertNonFull(s,key);
     }
        else{
@@ -39,11 +38,15 @@ public BTree(int order){
 
     /**
      * Splits node if full
-     * @param BTreeNode
-     * @param  int key to be inserted
+     * @param BTreeNode parent node
+     * @param  child node location
      */
-    public void split(BTreeNode x, int y){
+    public void split(BTreeNode x, int i, BTreeNode y){
+        BTreeNode z = new BTreeNode(order);
+        y=x.
 
+     
+      
     }
     
     /**
@@ -51,9 +54,18 @@ public BTree(int order){
      */
     public void insertNonFull(BTreeNode x, Long key){
         int i =x.n;
+        BTreeObject tObj= new BTreeObject(key);
             if(x.leaf){
-               //key variable type??? while(i>=1 && key < x.keys[i]{ 
-                   
+                while(i>0 && key < x.keys[i].dna){ 
+                    x.keys[i+1]=x.keys[i];   //shift
+                    i--;
+                } 
+                x.keys[i+1] =key;
+                x.n=x.n +1;
+                //diskWrite(x)
+
+
+
 
                     
                     
