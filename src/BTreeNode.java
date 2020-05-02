@@ -24,34 +24,5 @@ public class BTreeNode {
         numbKeys=0;
         numbChildren=0;
     }
-/**
- * Gets value of key
- * @param index
- * @return key value
- */
-    public long getValue (int index){
-        return keys [index];
-    }
-    /**
-     * Gets child node at given index
-     * @param index
-     * @return child node
-     */
-    public Long getChild(int index){
-        return children[index];
-    }
-    /**
-     * Sets status if node is a leaf
-     * @param statement
-     */
-    public void setIfLeaf(boolean statement){
-        leaf=statement;
-    }
-    public String printInfo(){
-        return "nothing yet";
-    }
-
-
-    
 	
 }
