@@ -11,15 +11,15 @@ public BTree(int order){
     this.order=order;
     root = new BTreeNode(order);
     root.setIfLeaf(true);
-    //Allocate space on the disk
+    
+    //Allocate space on the disk what type of file am I creating/writing to?
     }
     /**
      * Inserts new node
      * @param BTree
-     * @param key
+     * @param key to be inserted
      */
-    public void insert(BTree tree, BTreeObject
-     keys){
+    public void insert(BTree tree, Long key){
     BTreeNode start = tree.root;
     if(start.n == 2 *order-1){
        BTreeNode s= new BTreeNode(order);
@@ -28,10 +28,10 @@ public BTree(int order){
        s.n=0;
        s.children[0]=start.ownLocation;
        split(s,1);
-       B-Tree-Insert-Nonfull(s,key);
+       insertNonFull(s,key);
     }
        else{
-        B-Tree-Insert-Nonfull(root,key); 
+        insertNonFull(start,key); 
        }
 
 
@@ -39,13 +39,27 @@ public BTree(int order){
 
     /**
      * Splits node if full
+     * @param BTreeNode
+     * @param  int key to be inserted
      */
-    public void split(BTreeNode x, int i){
+    public void split(BTreeNode x, int y){
 
     }
     
     /**
-     * Nonfull ode insertion
+     * Nonfull node insertion
      */
+    public void insertNonFull(BTreeNode x, Long key){
+        int i =x.n;
+            if(x.leaf){
+               //key variable type??? while(i>=1 && key < x.keys[i]{ 
+                   
+
+                    
+                    
+                
+            }
+
+    }
 
 }

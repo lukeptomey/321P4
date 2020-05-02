@@ -16,7 +16,7 @@ public class BTreeNode {
        
 		this.t=t;
         keys = new BTreeObject[2*t - 1]; //key values
-        children = new BTreeNode [2*t]; //references
+        children = new Long [2*t]; //references
         Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
         n =0;
@@ -35,7 +35,7 @@ public class BTreeNode {
      * @param index
      * @return child node
      */
-    public BTreeNode getChild(int index){
+    public Long getChild(int index){
         return children[index];
     }
     /**
