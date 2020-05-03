@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 /**
+ * Class that reads and writes to random access file
  *  @author Luke Ptomey
  */
 
@@ -9,8 +10,8 @@ import java.io.RandomAccessFile;
 public class FileRW {
     RandomAccessFile randomFile;
 	long endOfFile;
-	int recordLength;
 	int degree; //t
+	int byteLength;
 
 
 /**
@@ -21,17 +22,13 @@ public class FileRW {
  * @throws IOException
  */
     public FileRW (String filename, int degrees, int byteLength) throws IOException {
-		randomFile = new RandomAccessFile(filename, "rw");// Open a new file as read/write with synchronized IO.
+		randomFile = new RandomAccessFile(filename, "rw");// Create read and write file
 		this.degree = degrees;// Set degree
-		endOfFile = 12;
-		randomFile.setLength(endOfFile);// set file size
 		randomFile.seek(0);//set offset where next read or write occurs
 		randomFile.writeInt(degree); // Degree is at offset 0
-		randomFile.seek(4);
-		randomFile.writeInt(byteLength); // byte length is at offset 4
-		randomFile.seek(8);
-		randomFile.writeInt(?);// Root location is at offset 8
-		recordLength=?
+		randomFile.writeLong(0); // root location is at offset 4
+		endOfFile = randomFile.getFilePointer();
+		
 	}
 	/**
 	 * Creates new node that needs to be written into the file
@@ -41,10 +38,9 @@ public class FileRW {
         try {
 			randomFile.seek(endOfFile);// Go to end of file
 			BTreeNode newNode = new BTreeNode(endOfFile, degree);// Create a new Node that starts there.
-			endOfFile = (endOfFile + recordLength);					// Increase the size of the file by the length of a record.
-			randomFile.setLength(randomFile.length() + recordLength);	// Write size change to file.
+			endOfFile = (endOfFile + byteLength);					// Increase the size of file by length of node
 			return newNode;
-		} catch (IOException e) {									// Fail on IOException.
+		} catch (IOException e) {									
             System.out.println("Node could not be created");
 			System.exit(1);
 			return null;
@@ -55,6 +51,14 @@ public class FileRW {
 	 * @param i
 	 */
     public void setRootLocation(Long i){
+		try {
+			randomFile.seek(4);
+			randomFile.writeLong(i);
+		}
+		 catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	/**

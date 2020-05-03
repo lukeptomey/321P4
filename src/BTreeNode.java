@@ -5,8 +5,7 @@
  */
 import java.util.Arrays;
 public class BTreeNode {
-	long[] keys; // An array of key values
-    int[] freqValue; //Frequency value at each key index
+	BTreeObject[] keys; // An array of key values
     int degree; // Minimum degree 
     long children[] ; // An array of child pointers 
     boolean leaf; // Whether node is leaf
@@ -22,8 +21,7 @@ public class BTreeNode {
 	BTreeNode(Long location, int degree ){
        
 		this.degree=degree;
-        keys = new long[2*degree - 1]; 
-        freqValue  = new int[2*degree - 1];
+        keys = new BTreeObject[2*degree - 1]; 
         children = new long [2*degree]; 
         Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
@@ -38,6 +36,10 @@ public class BTreeNode {
     public void setLeaf(boolean statement){
         leaf=statement;
     }
+    /**
+     * Set number of keys
+     * @param numb
+     */
     public void setKeyNumb(int numb){
         numbKeys=numb;
     }
@@ -88,8 +90,8 @@ public class BTreeNode {
    * @param key to be set
    * @param i index
    */
-  public void setKeyAtIndex(long key,int i){
-      children[i]=key;
+  public void setKeyAtIndex(BTreeObject key,int i){
+      keys[i]=key;
   }
 
   /**
@@ -97,7 +99,7 @@ public class BTreeNode {
    * @param i index
    * @return key from array of keys
    */
-  public long getKeyAtIndex(int i){
+  public BTreeObject getKeyAtIndex(int i){
     return keys[i];
   }
 

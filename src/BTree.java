@@ -17,7 +17,7 @@ public class BTree {
 public BTree(int useCache, int degree, String gbkFilename, int sequenceLength, int cacheSize){
     this.degree=degree;
 try{
-    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree, sequenceLength);
+    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree,byteLength);
 }
 catch (IOException e){
     System.out.println("File could not be created");
@@ -66,7 +66,10 @@ catch (IOException e){
         
         for(int j=0; j < (degree-1 ); j++){
             x.setKeyAtIndex(y.getKeyAtIndex(j+degree), j);
-            //copy freqency?
+        }
+
+        if(!y.checkLeaf()){
+            for()
         }
 		
 		
