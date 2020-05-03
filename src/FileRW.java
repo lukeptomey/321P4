@@ -61,6 +61,19 @@ public class FileRW {
 		}
 
 	}
+
+	public BTreeNode getRootNode(){
+		try{
+			randomFile.seek(4);
+			return getNode(randomFile.readLong());
+			(IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+		catch
+
+		}
+	}
 	/**
 	 * Write node to file
 	 * @param node
@@ -77,5 +90,8 @@ public class FileRW {
 		//placeholder code
 		BTreeNode newNode = new BTreeNode(endOfFile, degree); 
 		return newNode;
+	}
+	public void writeNode(BTreeNode n){
+
 	}
 }

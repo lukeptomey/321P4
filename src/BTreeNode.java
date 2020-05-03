@@ -90,7 +90,7 @@ public class BTreeNode {
    * @param key to be set
    * @param i index
    */
-  public void setKeyAtIndex(BTreeObject key,int i){
+  public void setKeyAtIndex(int i, BTreeObject key){
       keys[i]=key;
   }
 
