@@ -66,13 +66,12 @@ public class FileRW {
 		try{
 			randomFile.seek(4);
 			return getNode(randomFile.readLong());
-			(IOException e) {
+		}
+		catch{	(IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
-		catch
-
-		}
+		
 	}
 	/**
 	 * Write node to file
@@ -91,7 +90,5 @@ public class FileRW {
 		BTreeNode newNode = new BTreeNode(endOfFile, degree); 
 		return newNode;
 	}
-	public void writeNode(BTreeNode n){
-
-	}
+	
 }

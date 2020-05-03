@@ -41,6 +41,9 @@ catch (IOException e){
      * @param key to be inserted
      */
     public void insert( Long key){
+
+    //check node if key exits, if so increase frequcy by one    
+
     if(root.getAmountOfKeys()== 2 *degree-1){
        newNode=file.createNode();
         file.setRootLocation(newNode.getLocation());
