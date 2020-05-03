@@ -3,14 +3,14 @@ import java.io.IOException;
 /**
  * BTree
  * @author Luke Ptomey
- * BTree that holds BTreeObjects
+ * BTree that holds BTreeNodes along with keys
  */
 public class BTree {
     private FileRW file;
 	private BTreeNode root;
 	private BTreeNode newNode;
-	private BTreeNode child1;
-	private BTreeNode child2;
+	private BTreeNode y;
+	private BTreeNode z;
 	private int degree;
 
 
@@ -24,13 +24,9 @@ catch (IOException e){
 }
  root = file.createNode();
  root.setLeaf(true);
-		//file.writeNode(root);
+		file.writeNode(root);
 		file.setRootLocation(root.getLocation());
-
-
-
 }
-    //Allocate space on the disk what type of file am I creating/writing to?
     
     /**
      * Inserts new node
@@ -43,15 +39,12 @@ catch (IOException e){
         file.setRootLocation(newNode.getLocation());
         newNode.setLeaf(false);
         newNode.setKeyNumb(0);
-        
-        //start here
-       //file.writeNode(newNode);
-       this.root=s;
-       s.leaf=false;
-       s.n=0;
-       s.children[0]=start.ownLocation;
-       split(s,0,start);
-       insertNonFull(s,key);
+        newNode.setChildAtIndex(0,root);
+        newNode.setNumbOfChildren(1);
+        file.writeNode(newNode);
+      
+       split(newNode,0);
+       insertNonFull(newNode,key);
     }
        else{
         insertNonFull(root,key); 
@@ -62,18 +55,31 @@ catch (IOException e){
 
     /**
      * Splits node if full
-     * @param BTreeNode parent node
+     * @param current node to split
      * @param  child node location
      */
-    public void split(BTreeNode x, int i, BTreeNode y){
-      
+    public void split(BTreeNode x, int i){
+        y = file.getNode(x.getChildAtIndex(i));
+        z = file.createNode();
+		z.setLeaf(y.checkLeaf());
+        z.setNumbOfChildren(degree-1);
+        
+        for(int j=0; j < (degree-1 ); j++){
+            x.setKeyAtIndex(y.getKeyAtIndex(j+degree), j);
+            //copy freqency?
+        }
+		
+		
+
 
      
       
     }
     
     /**
-     * Nonfull node insertion
+     * Nonful node insetion 
+     * @param x current nonfull node
+     * @param key new key
      */
     public void insertNonFull(BTreeNode x, Long key){
     

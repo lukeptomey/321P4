@@ -5,12 +5,12 @@
  */
 import java.util.Arrays;
 public class BTreeNode {
-	Long[] keys; // An array of key values
+	long[] keys; // An array of key values
     int[] freqValue; //Frequency value at each key index
     int degree; // Minimum degree 
-    Long children[] ; // An array of child pointers 
+    long children[] ; // An array of child pointers 
     boolean leaf; // Whether node is leaf
-    Long location; // location of node in file
+    long location; // location of node in file
     int numbKeys; //number of keys
     int numbChildren; //numberofChildren
 
@@ -22,9 +22,9 @@ public class BTreeNode {
 	BTreeNode(Long location, int degree ){
        
 		this.degree=degree;
-        keys = new Long[2*degree - 1]; 
+        keys = new long[2*degree - 1]; 
         freqValue  = new int[2*degree - 1];
-        children = new Long [2*degree]; 
+        children = new long [2*degree]; 
         Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
         this.location =location;
@@ -43,7 +43,7 @@ public class BTreeNode {
     }
 /**
  * Gets amount of keys in node
- * @return nuber of keys
+ * @return number of keys
  */
   public int getAmountOfKeys(){
     return numbKeys;
@@ -55,5 +55,52 @@ public class BTreeNode {
   public Long getLocation(){
       return location;
   }
+/**
+ * Set child is node input at given index
+ * @param index
+ * @param node
+ */
+  public void setChildAtIndex(int index, BTreeNode node){
+      children[index]= node.getLocation();
+  }
+/**
+ * Sets number of children for node
+ * @param i amount of children node now has
+ */
+  public void setNumbOfChildren(int i){
+      numbChildren=i;
+  }
+
+  public long getChildAtIndex(int i){
+    return children[i];
+  }
+
+  /**
+   * Returns if node is a leaf or not
+   * @return boolean true or false
+   */
+  public boolean checkLeaf(){
+      return leaf;
+  }
+
+  /**
+   * Sets key at given index
+   * @param key to be set
+   * @param i index
+   */
+  public void setKeyAtIndex(long key,int i){
+      children[i]=key;
+  }
+
+  /**
+   * Gets key at index
+   * @param i index
+   * @return key from array of keys
+   */
+  public long getKeyAtIndex(int i){
+    return keys[i];
+  }
+
+
 	
 }

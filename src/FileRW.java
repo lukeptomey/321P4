@@ -8,29 +8,39 @@ import java.io.RandomAccessFile;
 
 public class FileRW {
     RandomAccessFile randomFile;
-	Long endOfFile;
+	long endOfFile;
 	int recordLength;
-	int degree;
+	int degree; //t
 
 
-
-    public FileRW (String filename, int degrees, int subStringLength) throws IOException {
-		randomFile = new RandomAccessFile(filename, "rw");					// Open a new file as read/write with synchronized IO.
-		this.degree = degrees;									// Degree is given.
-		endOfFile = 16;
-		randomFile.setLength(endOfFile + 1);							// Give the file a size, otherwise it's empty.
-		randomFile.seek(0);                                          //set offset where next read or write occurs
-		randomFile.writeInt(degree); 								// Degree is at offset 0
+/**
+ * Constructor to make rw file
+ * @param filename
+ * @param degrees
+ * @param subStringLength
+ * @throws IOException
+ */
+    public FileRW (String filename, int degrees, int byteLength) throws IOException {
+		randomFile = new RandomAccessFile(filename, "rw");// Open a new file as read/write with synchronized IO.
+		this.degree = degrees;// Set degree
+		endOfFile = 12;
+		randomFile.setLength(endOfFile);// set file size
+		randomFile.seek(0);//set offset where next read or write occurs
+		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.seek(4);
-		randomFile.writeInt(subStringLength); 							// Substring Length is at offset 4
+		randomFile.writeInt(byteLength); // byte length is at offset 4
 		randomFile.seek(8);
-		randomFile.writeInt(16); 									// Root location is at offset 8
-		recordLength = (2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;	// Record Size
-    }
+		randomFile.writeInt(?);// Root location is at offset 8
+		recordLength=?
+	}
+	/**
+	 * Creates new node that needs to be written into the file
+	 * @return new node 
+	 */
     public BTreeNode createNode(){
         try {
-			randomFile.seek(endOfFile);								// Go to the last byte of the file.
-			BTreeNode newNode = new BTreeNode(endOfFile, degree);			// Create a new Node that starts there.
+			randomFile.seek(endOfFile);// Go to end of file
+			BTreeNode newNode = new BTreeNode(endOfFile, degree);// Create a new Node that starts there.
 			endOfFile = (endOfFile + recordLength);					// Increase the size of the file by the length of a record.
 			randomFile.setLength(randomFile.length() + recordLength);	// Write size change to file.
 			return newNode;
@@ -39,9 +49,29 @@ public class FileRW {
 			System.exit(1);
 			return null;
 		}
-    }
+	}
+	/**
+	 * Sets root location in file given location index
+	 * @param i
+	 */
     public void setRootLocation(Long i){
 
-    }
+	}
+	/**
+	 * Write node to file
+	 * @param node
+	 */
+	public void writeNode(BTreeNode node) {
 
+	}
+/**
+ * Gets node at location in file
+ * @param location
+ * @return
+ */
+	public BTreeNode getNode(long location){
+		//placeholder code
+		BTreeNode newNode = new BTreeNode(endOfFile, degree); 
+		return newNode;
+	}
 }
