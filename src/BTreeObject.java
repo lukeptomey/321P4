@@ -1,9 +1,8 @@
-
 public class BTreeObject {
-String dna;
-int frequency;
-public BTreeObject(String dna,int  frequency){
-    this.dna=dna;
-    this.frequency=frequency;
-}
-}
+    long dna;
+    int frequency;
+    public BTreeObject(long dna,int  frequency){
+        this.dna=dna;
+        this.frequency=frequency;
+    }
+    }
