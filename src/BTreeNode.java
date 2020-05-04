@@ -50,6 +50,10 @@ public class BTreeNode {
   public int getAmountOfKeys(){
     return numbKeys;
   }
+
+  public int getAmountOfChildren(){
+      return numbChildren;
+  }
   /**
    * Gets location of node
    * @return location of node
@@ -73,6 +77,11 @@ public class BTreeNode {
       numbChildren=i;
   }
 
+  /**
+   * Gets child at index i
+   * @param i index
+   * @return long child
+   */
   public long getChildAtIndex(int i){
     return children[i];
   }
@@ -102,6 +111,29 @@ public class BTreeNode {
   public BTreeObject getKeyAtIndex(int i){
     return keys[i];
   }
+  /**
+   * Sets location of node
+   * @param i long location
+   */
+   public void setLocation(long i){
+       location=i;
+   }
+
+   /**
+    * Set children array as new array
+    * @param childSet
+    */
+   public void setChildArray(long childSet[]){
+        children =childSet;
+   }
+
+   /**
+    * Set key array as new array
+    * @param keyArray
+    */
+   public void setKeyArray(BTreeObject keyArray[]){
+       keys=keyArray;
+   }
 
 
 	

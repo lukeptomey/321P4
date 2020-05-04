@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 /**
@@ -28,7 +28,7 @@ public class FileRW {
 		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.writeLong(0); // root location is at offset 4
 		endOfFile = randomFile.getFilePointer();
-		//byteLength
+		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;;
 		
 	}
 	/**
@@ -80,7 +80,26 @@ public class FileRW {
 	 * @param node
 	 */
 	public void writeNode(BTreeNode node) {
+	try{
+		randomFile.seek(node.getLocation()); //find location
+		randomFile.writeLong(node.getLocation()); //write location
+		randomFile.writeInt(node.getAmountOfChildren()); //amount of children
+		randomFile.writeInt(node.getAmountOfKeys()); //amount of keys
+		randomFile.writeBoolean(node.checkLeaf()); //write if leaf
 
+		for (int i=0; i < node.getAmountOfChildren(); i++ ){ //write children to the file
+			randomFile.writeLong(node.getChildAtIndex(i));
+		}
+
+		for ( int i =0; i < node.getAmountOfKeys(); i++){
+			randomFile.writeLong(node.getKeyAtIndex(i).dna); //write dna long
+			randomFile.writeInt(node.getKeyAtIndex(i).frequency); //write frequency
+		}
+	}
+	catch (IOException e){
+		e.printStackTrace();
+		System.exit(1);
+	}
 	}
 /**
  * Gets node at location in file
@@ -88,9 +107,39 @@ public class FileRW {
  * @return
  */
 	public BTreeNode getNode(long location){
-		//placeholder code
-		BTreeNode newNode = new BTreeNode(endOfFile, degree); 
-		return newNode;
+	try{
+		randomFile.seek(location); //find begining of node
+		BTreeNode readNode = new BTreeNode(location, degree);
+		readNode.setLocation(randomFile.readLong()); //read location
+		readNode.setNumbOfChildren(randomFile.readInt()); //read amount of children
+		readNode.setKeyNumb(randomFile.readInt()); //read amount of keys
+
+		long[] grabChildren = new long[(2*degree)-1]; //read children
+		for(int i=0; i < readNode.getAmountOfChildren(); i++ ){
+			grabChildren[i]= randomFile.readLong();
+		}
+		readNode.setChildArray(grabChildren);
+
+		BTreeObject[] grabObjects = new BTreeObject [(2*degree) - 1]; //read keys 
+		for(int i=0; i < readNode.getAmountOfKeys(); i++){
+			long tempDNA = randomFile.readLong();
+			int tempFrequency =randomFile.readInt();
+			BTreeObject insert = new BTreeObject(tempDNA, tempFrequency);
+			grabObjects[i] =insert;
+		}
+		readNode.setKeyArray(grabObjects);
+			return readNode;
+
+		}
+		catch (IOException e){
+			e.printStackTrace();
+			System.exit(1);
+			return null;
+		}
+
 	}
+
+
+	
 	
 }
