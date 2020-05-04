@@ -24,7 +24,8 @@ public class BTree {
 public BTree(int useCache, int degree, String gbkFilename, int sequenceLength, int cacheSize){
     this.degree=degree;
 try{
-    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree,byteLength);
+    //change sequenceLength to byteLength
+    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree,sequenceLength);
 }
 catch (IOException e){
     System.out.println("File could not be created");

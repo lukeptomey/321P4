@@ -24,6 +24,16 @@ public class GeneBankCreateBTree {
     static int cacheSize;
 
     /**
+     * Main method
+     */
+    public static void main (String[] args){
+    
+    if(args.length <4 ){ //if too few args are provided
+            System.out.println("java GeneBankCreateBTree <0/1(no/with Cache)> <degree> <gbk file> <sequence length>  [<cache size>] [<debug level>]");
+        }
+    }
+
+    /**
      * Constuctor that creates BTree
      */
 public GeneBankCreateBTree(){
@@ -66,7 +76,13 @@ public GeneBankCreateBTree(){
      */
     static long binaryStringToLong(String binaryString){
         char[] bits = binaryString.toCharArray();
-        
+        long retVal=0;
+        for(int i = bits.length - 1; i >= 0; i--){
+            if (bits[i] == '1'){
+                retVal += (long) Math.pow(2,(bits.length -i -1));
+            }
+        }
+        return retVal;
     }
   
 

@@ -28,7 +28,7 @@ public class FileRW {
 		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.writeLong(0); // root location is at offset 4
 		endOfFile = randomFile.getFilePointer();
-		byteLength
+		//byteLength
 		
 	}
 	/**
