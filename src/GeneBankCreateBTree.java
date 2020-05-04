@@ -91,11 +91,11 @@ public class GeneBankCreateBTree {
      * @param sequenceLength2
      * @param gbkFileName2
      */
-    private static void parseInputFile(final int sequenceLengthInput, final String gbkFileNameInput) {
+    private static void parseInputFile( int sequenceLengthInput,String gbkFileNameInput) {
         try{
-            final File fileIn = new File(gbkFileNameInput); //utilize scanner
-            final Scanner scan = new Scanner(fileIn);
-            while(scan.hasNextLine()){
+             File gbk = new File(gbkFileNameInput); //utilize scanner
+             Scanner scan = new Scanner(gbk);
+             while(scan.hasNextLine()){
 
             } 
               
