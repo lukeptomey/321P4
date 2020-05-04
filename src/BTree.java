@@ -24,7 +24,8 @@ public class BTree {
 public BTree(int useCache, int degree, String gbkFilename, int sequenceLength, int cacheSize){
     this.degree=degree;
 try{
-    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree,byteLength);
+    //change sequenceLength to byteLength
+    file = new FileRW(gbkFilename + ".btree.data." + sequenceLength + "." + degree, degree,sequenceLength);
 }
 catch (IOException e){
     System.out.println("File could not be created");
@@ -41,6 +42,9 @@ catch (IOException e){
      * @param key to be inserted
      */
     public void insert( Long key){
+
+    //check node if key exits, if so increase frequcy by one    
+
     if(root.getAmountOfKeys()== 2 *degree-1){
        newNode=file.createNode();
         file.setRootLocation(newNode.getLocation());
@@ -70,6 +74,7 @@ catch (IOException e){
         z = file.createNode(); //create node z and give it the largest t-1 keys
 		z.setLeaf(y.checkLeaf());
         z.setNumbOfChildren(degree-1);
+        z.setNumbOfChildren(y.getAmountOfChildren()/2); // second child has half as many chilren as first
         
         for(int j=0; j < (degree-1 ); j++){ 
             z.setKeyAtIndex(j,y.getKeyAtIndex(j+degree));
@@ -94,6 +99,7 @@ catch (IOException e){
         }
        x.setKeyAtIndex( i+1,y.getKeyAtIndex(degree));
         x.setKeyNumb(x.getAmountOfKeys() +1);
+        x.setNumbOfChildren(x.getAmountOfChildren()+1);
 
         //writing nodes to file
         file.writeNode(y);
