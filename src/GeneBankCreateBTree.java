@@ -28,7 +28,7 @@ public class GeneBankCreateBTree {
     /**
      * Main method
      */
-    public static void main (String[] args){
+    public static void main (final String[] args){
     
         // args size
 
@@ -91,16 +91,16 @@ public class GeneBankCreateBTree {
      * @param sequenceLength2
      * @param gbkFileName2
      */
-    private static void parseInputFile(int sequenceLengthInput, String gbkFileNameInput) {
+    private static void parseInputFile(final int sequenceLengthInput, final String gbkFileNameInput) {
         try{
-            File fileIn = new File(gbkFileNameInput); //utilize scanner
-            Scanner scan = new Scanner(fileIn);
+            final File fileIn = new File(gbkFileNameInput); //utilize scanner
+            final Scanner scan = new Scanner(fileIn);
             while(scan.hasNextLine()){
 
             } 
               
         }
-        catch(FileNotFoundException e){
+        catch(final FileNotFoundException e){
 			System.err.println( gbkFileName + " could not be opened.");
             System.exit(1);
         }
@@ -116,15 +116,15 @@ public GeneBankCreateBTree(){
     tree = new BTree(useCache, degree, gbkFileName, sequenceLength, cacheSize);
     }
     else {
-        tree = new BTree(useCache, degree, gbkFileName, sequenceLength, cacheSize);
+        tree = new BTree(useCache, degree, gbkFileName, sequenceLength, 0);
     }
-    }
+}
     /**
      * Converts string of DNA into long datatype
      * @param dnaString 
      * @return long variable type with binary representation of atcg
      */
-    static long stringToBinary(String dnaString){
+    static long stringToBinary(final String dnaString){
         String hold = "";
         char d;
         for (int i =0; i < sequenceLength; i++){
@@ -140,7 +140,7 @@ public GeneBankCreateBTree(){
             }
         }
 
-        long dnaLong = binaryStringToLong(hold);
+        final long dnaLong = binaryStringToLong(hold);
         return dnaLong; 
     }
 
@@ -149,8 +149,8 @@ public GeneBankCreateBTree(){
      * @param binaryString
      * @return binary in long datatype
      */
-    static long binaryStringToLong(String binaryString){
-        char[] bits = binaryString.toCharArray();
+    static long binaryStringToLong(final String binaryString){
+        final char[] bits = binaryString.toCharArray();
         long retVal=0;
         for(int i = bits.length - 1; i >= 0; i--){
             if (bits[i] == '1'){

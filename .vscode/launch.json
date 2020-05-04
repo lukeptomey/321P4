@@ -16,7 +16,7 @@
             "request": "launch",
             "mainClass": "GeneBankCreateBTree",
             "projectName": "321P4_aef74536",
-            "args": "0 4 test2.gbk 3 0 0"
+            "args": "0 4 test2.gbk 3 "
         }
     ]
 }
