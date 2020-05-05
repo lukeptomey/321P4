@@ -1,19 +1,33 @@
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 /**
  * Class that reads and writes to random access file
- *  @author Luke Ptomey
+ * 
+ * @author Luke Ptomey
  */
 
-
 public class FileRW {
-    RandomAccessFile randomFile;
+	RandomAccessFile randomFile;
 	long endOfFile;
-	int degree; //t
+	int degree; // t
 	int byteLength;
 	int subStringLength;
 
+	/**
+	 * Constructor that reads file
+	 * 
+	 * @param gbkFileName
+	 * @throws IOException
+	 */
+	public FileRW(String gbkFileName) throws IOException {
+		randomFile = new RandomAccessFile(gbkFileName, "r");// Create read file
+		randomFile.seek(0); //go to begining of file
+		degree=randomFile.readInt();
+		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;
+	}
 
 /**
  * Constructor to make rw file
@@ -22,15 +36,15 @@ public class FileRW {
  * @param subStringLength
  * @throws IOException
  */
-    public FileRW (String filename, int degrees, int subStringLength) throws IOException {
-		randomFile = new RandomAccessFile(filename, "rw");// Create read and write file
+    public FileRW (String gbkFileName, int degrees, int subStringLength) throws IOException {
+		randomFile = new RandomAccessFile(gbkFileName, "rw");// Create read and write file
 		this.degree = degrees;// Set degree
 		this.subStringLength = subStringLength; 
-		randomFile.seek(0);//set offset where next read or write occurs
+		randomFile.seek(0);//go to begining of file
 		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.writeLong(0); // root location is at offset 4
 		endOfFile = randomFile.getFilePointer();
-		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;;
+		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;
 		
 	}
 	/**

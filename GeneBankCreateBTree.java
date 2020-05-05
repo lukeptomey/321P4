@@ -127,7 +127,7 @@ public GeneBankCreateBTree(){
      * @param dnaString 
      * @return long variable type with binary representation of atcg
      */
-    static long stringToBinary(final String dnaString){
+    static long stringToBinary( String dnaString){
         String hold = "";
         char d;
         for (int i =0; i < sequenceLength; i++){
