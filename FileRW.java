@@ -12,6 +12,7 @@ public class FileRW {
 	long endOfFile;
 	int degree; //t
 	int byteLength;
+	int subStringLength;
 
 
 /**
@@ -21,9 +22,10 @@ public class FileRW {
  * @param subStringLength
  * @throws IOException
  */
-    public FileRW (String filename, int degrees, int byteLength) throws IOException {
+    public FileRW (String filename, int degrees, int subStringLength) throws IOException {
 		randomFile = new RandomAccessFile(filename, "rw");// Create read and write file
 		this.degree = degrees;// Set degree
+		this.subStringLength = subStringLength; 
 		randomFile.seek(0);//set offset where next read or write occurs
 		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.writeLong(0); // root location is at offset 4
@@ -137,6 +139,14 @@ public class FileRW {
 			return null;
 		}
 
+	}
+
+	/**
+	 * Gets sequenceLength
+	 * @return sequenceLength/subStringLength
+	 */
+	public int getSequenceLength(){
+		return subStringLength;
 	}
 
 
