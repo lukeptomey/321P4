@@ -3,7 +3,6 @@
  * @author Luke Ptomey
  * BTree Node object that will make up BTree
  */
-import java.util.Arrays;
 public class BTreeNode {
 	BTreeObject[] keys; // An array of key values
     int degree; // Minimum degree 
@@ -23,7 +22,6 @@ public class BTreeNode {
 		this.degree=degree;
         keys = new BTreeObject[2*degree - 1]; 
         children = new long [2*degree]; 
-        Arrays.fill(keys,-1);
         leaf = true; //Every node starts as leaf
         this.location =location;
         numbKeys=0;
