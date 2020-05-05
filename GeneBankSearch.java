@@ -17,8 +17,8 @@ public class GeneBankSearch
     static FileRW file;
 
     public static void main(String[] args) throws IOException
-    {
-         useCache = Integer.parseInt(args[0]);
+    { 
+        useCache = Integer.parseInt(args[0]);
          bTreeFilename = args[1];
          queryFilename = args[2];
          cacheSize = 0;
@@ -133,5 +133,14 @@ public class GeneBankSearch
     {
         long key = GeneBankCreateBTree.stringToBinary(queryLine);
         return tree.search(file.getRootNode(), key);
+    }
+
+    /**
+     * Prints how to use to the console.
+     */
+    private static void usagePrint()
+    {
+        System.out.println("Usage: java GeneBankSearch <0/1(no/with Cache)> <btree file> <query file> [<cache size>] [<debug level>]");
+        System.out.println("Cache Size and Debug Level are optional inputs, however debug level is set to 0.");
     }
 }
