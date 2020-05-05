@@ -4,14 +4,16 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        //Luke Config
         {
             "type": "java",
             "name": "CodeLens (Launch) - GeneBankCreateBTree",
             "request": "launch",
             "mainClass": "GeneBankCreateBTree",
+            //Luke's Project Name
             "projectName": "321P4_aef74536", 
+            //Jeremy's Project Name
             "projectName": "321P4_5efb6d65",
+            //Daniel's Project Name
             "args": "0 4 test2.gbk 3",
 
         },
