@@ -3,6 +3,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Reads string sequences from a query file and searches a BTree file for matches.
+ * 
+ * @author Jeremy Bouchard
+ */
 public class GeneBankSearch 
 {
     static int useCache, cacheSize, debugLevel;
@@ -20,7 +25,7 @@ public class GeneBankSearch
 
          //access to the BTree file
          //TODO: This file creation needs a constructior @Luke
-         file = new FileRW(bTreeFilename, cacheSize, cacheSize);
+         file = new FileRW(bTreeFilename);
          //create the BTree in order to perform search
          tree = new BTree(useCache, file, cacheSize);
          //create new File object to allow for query file access
@@ -58,5 +63,75 @@ public class GeneBankSearch
                  System.exit(1);
              }
          }
+    }
+    
+    /**
+     * Checks through the query file line by line and prints output
+     * 
+     * @throws FileNotFoundException
+     */
+    private static void queryCheck() throws FileNotFoundException
+    {
+        Scanner queryScan = new Scanner(query);
+        String queryLine = queryScan.nextLine();
+
+        //check for sequence length compatability
+        if(queryLine.length() != file.getSequenceLength())
+        {
+            System.out.println("Error: Squence lengths do not match the lengths of the files.");
+            System.exit(1);
+        }
+
+        //search for sequence and print output
+        while(queryScan.hasNextLine())
+        {
+            System.out.print(queryLine + " ");
+            int frequency = freqBTree(queryLine);
+            queryLine = queryScan.nextLine();
+
+            //May need to be greater than or equal to 0.
+            if(frequency != 0)
+            {
+                System.out.println(": " + frequency);
+            }
+
+            else
+            {
+                System.out.println("[not found]");
+            }
+
+            //check again for matched sequence lengths
+            if(queryLine.length() != file.getSequenceLength())
+            {
+                System.out.println("Error: Line sequence length is incorrect.");
+            }
+        }
+
+        //gets last query line from the file
+        System.out.print(queryLine + " ");
+        int frequency = freqBTree(queryLine);
+
+        //May need to be greater than or equal to 0.
+        if(frequency != 0)
+        {
+            System.out.println(": " + frequency);
+        }
+        else
+        {
+            System.out.println("[not found]");
+        }
+
+        queryScan.close();
+    }
+
+    /**
+     * Searches through BTree to find a string and returns frequency
+     * 
+     * @param queryLine the string being looked for
+     */
+    private static int freqBTree(String queryLine)
+    {
+        long key = GeneBankCreateBTree.stringToBinary(queryLine);
+        return tree.search(file.getRootNode(), key);
     }
 }
