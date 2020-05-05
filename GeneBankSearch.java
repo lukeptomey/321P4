@@ -24,9 +24,9 @@ public class GeneBankSearch
          cacheSize = 0;
 
          //access to the BTree file
-         //TODO: This file creation needs a constructior @Luke
          file = new FileRW(bTreeFilename);
          //create the BTree in order to perform search
+         //@TODO create new BTree constructor
          tree = new BTree(useCache, file, cacheSize);
          //create new File object to allow for query file access
          query = new File(queryFilename);

@@ -46,16 +46,15 @@ catch (IOException e){
      */
     public void insert(Long key){
     
-    //For @Luke to check
-    // for(int i = 0; i < root.getAmountOfKeys(); i++)
-    // {
-    //     if(key == root.getKeyAtIndex(i))
-    //     {
-    //         root.setKeyAtIndex(i, root.getKeyAtIndex(i) + 1);
-    //         file.writeNode(root);
-    //         return;
-    //     }
-    // }
+    for(int i = 0; i < root.getAmountOfKeys(); i++)
+    {
+        if(key == root.getKeyAtIndex(i).dna)
+        {
+            root.getKeyAtIndex(i).addFrequency(); //if there is duplicate increment frequency
+            file.writeNode(root);
+            return;
+        }
+    }
     //check node if key exits, if so increase frequcy by one    
     if(root.getAmountOfKeys()== 2 *degree-1){
        newNode=file.createNode();
@@ -65,9 +64,9 @@ catch (IOException e){
         newNode.setChildAtIndex(0,root);
         newNode.setNumbOfChildren(1);
         file.writeNode(newNode);
-      
-       split(newNode,0);
-       insertNonFull(newNode,key);
+        split(newNode,0);
+        insertNonFull(newNode,key);
+
     }
        else{
         insertNonFull(root,key); 
@@ -126,16 +125,15 @@ catch (IOException e){
      */
     public void insertNonFull(BTreeNode x, long key){
      
-        //For @Luke to check
-        // for(int i = 0; i < root.getAmountOfKeys(); i++)
-        // {
-        //     if(key == root.getKeyAtIndex(i))
-        //     {
-        //         root.setKeyAtIndex(i, root.getKeyAtIndex(i) + 1);
-        //         file.writeNode(root);
-        //         return;
-        //     }
-        // }
+        for(int i = 0; i < root.getAmountOfKeys(); i++)
+    {
+        if(key == root.getKeyAtIndex(i).dna)
+        {
+            root.getKeyAtIndex(i).addFrequency(); //if there is duplicate increment frequency
+            file.writeNode(root);
+            return;
+        }
+    }
      
         int i = x.getAmountOfKeys();
         if (x.checkLeaf()){ //x is a leaf and nonfull, insert k into x directly

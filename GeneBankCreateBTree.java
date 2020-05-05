@@ -26,7 +26,7 @@ public class GeneBankCreateBTree {
     static int debugLevel;
 
     /**
-     * Main method
+     * Main method first catches argument errors then goes to readInputFile method
      */
     public static void main (final String[] args){
     
@@ -79,7 +79,7 @@ public class GeneBankCreateBTree {
         //CREATE CACHE 
     }
     
-    parseInputFile(sequenceLength, gbkFileName);
+    readInputFile(sequenceLength, gbkFileName);
 
 
     
@@ -91,24 +91,36 @@ public class GeneBankCreateBTree {
      * @param sequenceLength2
      * @param gbkFileName2
      */
-    private static void parseInputFile( int sequenceLengthInput,String gbkFileNameInput) {
-        boolean orgin = false;
+    private static void readInputFile( int sequenceLengthInput,String gbkFileNameInput) {
+        boolean origin = false; // word with dna after in gbk file
+        String grab = "";
         try{
              File gbk = new File(gbkFileNameInput); //utilize scanner
              Scanner scan = new Scanner(gbk);
              while(scan.hasNextLine()){//grabs each line
                String grabLine= scan.nextLine(); 
                StringTokenizer editLine = new StringTokenizer(grabLine);
+               while(editLine.hasMoreTokens()){
+                   if(origin == false){ //not DNA
+                    grab = editLine.nextToken().toUpperCase();
+
+                        if(grab.equals("ORIGIN")){
+                       origin = true; //hit orgin word in file
+                        }
+                   }
+                   else if (origin == true){ //DNA
+
+                   }
+                
+               }
               
             } 
-              
+            scan.close();
         }
         catch(final FileNotFoundException e){
 			System.err.println( gbkFileName + " could not be opened.");
             System.exit(1);
         }
-        
-
 }
 
 /**
