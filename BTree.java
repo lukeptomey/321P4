@@ -36,7 +36,10 @@ catch (IOException e){
 		file.setRootLocation(root.getLocation());
 }
     
-    /**
+    public BTree(int useCache, FileRW file2, int cacheSize) {
+}
+
+	/**
      * Inserts new node
      * @param BTree
      * @param key to be inserted
