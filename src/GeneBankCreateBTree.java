@@ -91,7 +91,7 @@ public class GeneBankCreateBTree {
      * @param sequenceLength2
      * @param gbkFileName2
      */
-    //Figure out why gbk is not registered as a file @JeremyBouchard220
+    //Figure out why gbk is not registered as a file @JeremyBouchard220 @DanielMcDougall
     private static void parseInputFile( int sequenceLengthInput,String gbkFileNameInput) {
         try{
              File gbk = new File(gbkFileNameInput); //utilize scanner
