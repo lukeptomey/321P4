@@ -24,7 +24,6 @@ public class GeneBankCreateBTree {
     static int cacheSize;
     static GeneBankCreateBTree classTree;
     static int debugLevel;
-
     /**
      * Main method first catches argument errors then goes to readInputFile method
      */
@@ -78,9 +77,21 @@ public class GeneBankCreateBTree {
     if(useCache ==1 ){
         //CREATE CACHE 
     }
-    
     readInputFile(sequenceLength, gbkFileName);
+    // if user wants debugLevel 1
+    if(debugLevel==1){
+        File dump = new File("dump.txt");
+        try{
+        dump.delete();
+        dump.createNewFile();
 
+        }
+        catch (IOException e){
+            System.out.println("Error when makeing dump file");
+            System.exit(1);
+        }
+        //@TODO tree traversal
+    }
 
     
 
@@ -94,6 +105,9 @@ public class GeneBankCreateBTree {
     private static void readInputFile( int sequenceLengthInput,String gbkFileNameInput) {
         boolean origin = false; // word with dna after in gbk file
         String grab = "";
+        long insertBinarySequence = 0;
+        String sequence = "";
+        int characterCount =0;
         try{
              File gbk = new File(gbkFileNameInput); //utilize scanner
              Scanner scan = new Scanner(gbk);
@@ -105,10 +119,24 @@ public class GeneBankCreateBTree {
                     grab = editLine.nextToken().toUpperCase();
 
                         if(grab.equals("ORIGIN")){
-                       origin = true; //hit orgin word in file
+                            characterCount=0; //reset characterCount if there is more than one DNA block
+                            origin = true; //hit orgin word in file
                         }
                    }
                    else if (origin == true){ //DNA
+                    grab = editLine.nextToken();
+                    if (grab.equals("//")){
+                       //debug??
+                        insertBinarySequence = binaryStringToLong(sequence); //add last sequence
+                        // check length??
+                        tree.insert(insertBinarySequence);  //add to tree
+                        sequence = ""; // reset in case file has other DNA block
+                        origin = false;
+                     }
+                    //  else if{
+
+                    //  }
+
 
                    }
                 
