@@ -97,7 +97,7 @@ public class GeneBankCreateBTree {
              File gbk = new File(gbkFileNameInput); //utilize scanner
              Scanner scan = new Scanner(gbk);
              while(scan.hasNextLine()){
-
+                System.out.println(scan.nextLine());
             } 
               
         }
