@@ -92,12 +92,14 @@ public class GeneBankCreateBTree {
      * @param gbkFileName2
      */
     private static void parseInputFile( int sequenceLengthInput,String gbkFileNameInput) {
+        boolean orgin = false;
         try{
              File gbk = new File(gbkFileNameInput); //utilize scanner
              Scanner scan = new Scanner(gbk);
-             while(scan.hasNextLine()){
-               String grabLine= scan.nextLine(); //grabs each line
+             while(scan.hasNextLine()){//grabs each line
+               String grabLine= scan.nextLine(); 
                StringTokenizer editLine = new StringTokenizer(grabLine);
+              
             } 
               
         }
