@@ -187,6 +187,14 @@ catch (IOException e){
      }
 
  }
+
+ /**
+  * Returns RWFile with nodes
+  * @return FileRW
+  */
+ public FileRW getFileRW(){
+    return file;
+}
 }
 
 
