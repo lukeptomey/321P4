@@ -32,12 +32,12 @@ public class GeneBankCreateBTree {
         // args size
 
     if(args.length <4 ){ //if too few args are provided
-            System.out.println("java GeneBankCreateBTree <0/1(no/with Cache)> <degree> <gbk file> <sequence length>  [<cache size>] [<debug level>]");
+            System.err.println("java GeneBankCreateBTree <0/1(no/with Cache)> <degree> <gbk file> <sequence length>  [<cache size>] [<debug level>]");
         }
         
     if (args.length ==5){ //optional cache size parameter debug is 0 since 5 args
         if(useCache==0){
-            System.out.println("Cannot have cache size if cache is not used");
+            System.err.println("Cannot have cache size if cache is not used");
         }
             cacheSize=Integer.parseInt(args[4]); //assign cache size
             debugLevel =0; //assign debug level
@@ -50,14 +50,14 @@ public class GeneBankCreateBTree {
     gbkFileName=args[2]; //set file name
 
     if(Integer.parseInt(args[0]) > 2){ //if use cache is above 1
-        System.out.println("First argument is 1 or 0");
+        System.err.println("First argument is 1 or 0");
     }
     useCache=Integer.parseInt(args[0]); //assign int to use cache from string
 
     //degree
 
     if(Integer.parseInt(args[1]) < 0){ //if degree is negative
-        System.out.println("Degree cannot be negative");
+        System.err.println("Degree cannot be negative");
     }
     else if (Integer.parseInt(args[1])==0){
         degree = 128;  //optimun degree
@@ -69,7 +69,7 @@ public class GeneBankCreateBTree {
     //sequenceLength
 
     if (Integer.parseInt(args[3]) < 1 || Integer.parseInt(args[3]) > 31) {
-        System.out.println("Sequence length is not in range");
+        System.err.println("Sequence length is not in range");
     }
     sequenceLength=Integer.parseInt(args[3]); //assign sequence length
     classTree = new GeneBankCreateBTree(); //create BTree
@@ -87,7 +87,7 @@ public class GeneBankCreateBTree {
 
         }
         catch (IOException e){
-            System.out.println("Error when makeing dump file");
+            System.err.println("Error when makeing dump file");
             System.exit(1);
         }
         //@DanielMcDougall tree traversal
@@ -108,6 +108,7 @@ public class GeneBankCreateBTree {
         String grab = "";
         long insertBinarySequence = 0;
         String sequence = "";
+        String oldSequence =  "";
         int characterCount =0;
         try{
              File gbk = new File(gbkFileNameInput); //utilize scanner
@@ -134,20 +135,50 @@ public class GeneBankCreateBTree {
                         sequence = ""; // reset in case file has other DNA block
                         origin = false;
                      }
-                      else if (grab.charAt(0) == 'A' || grab.charAt(0) == 'C' || grab.charAt(0) == 'G'
-                      || grab.charAt(0) == 'T'){
+                      else if (grab.charAt(0) == 'A' || grab.charAt(0) == 'C' || grab.charAt(0) == 'G'|| grab.charAt(0) == 'T'){
                           for(int i =0; i < grab.length(); i++){
-                              if()
-                          }
+                              if(characterCount == sequenceLengthInput){
+                                  if(debugLevel == 0){
+                                    //print subString??
+                                  }
+                                  oldSequence=sequence;
 
-                      }
+                                  insertBinarySequence = stringToBinary(sequence);
+                                  if(debugLevel == 0){
+                                    //print insertBinary
+                                  }
+
+                                  if(!sequence.contains("n")){
+                                      tree.insert(insertBinarySequence);
+                                  }
+
+                                  sequence = ""; //reset sequence
+
+                                  sequence  = oldSequence.substring(1);
+                                  characterCount = sequenceLengthInput-1; 
+                              }
+                              if(grab.charAt(i) == 'n'){
+                                  sequence += grab.charAt(i);
+                                  characterCount++;
+                              }
+                              else{
+                                  sequence += grab.charAt(i);
+                                  characterCount++;
+                              }
+                            }
+                        }
+
+                    }
+                    else{
+
+                    }
 
 
-                   }
+                }
                 
-               }
+            }
               
-            } 
+            
             scan.close();
         }
         catch(final FileNotFoundException e){

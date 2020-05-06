@@ -141,9 +141,11 @@ catch (IOException e){
              x.setKeyAtIndex(i+1, x.getKeyAtIndex(i));
              i--;
           }
-         x.keys[i].dna=key;
-         x.keys[i].frequency=1;
-         file.writeNode(x);
+        //@lukeptomey object is copying to all keys 
+        //  x.keys[i].dna=key;
+        //  x.keys[i].frequency=1;
+        //  x.setKeyNumb(x.getAmountOfKeys() +1);
+        //  file.writeNode(x);
          return; //done
      }
         else{

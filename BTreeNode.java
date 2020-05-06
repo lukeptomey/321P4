@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 /**
  * BTree Node
- * @author Luke Ptomey
- * BTree Node object that will make up BTree
+ * 
+ * @author Luke Ptomey BTree Node object that will make up BTree
  */
 public class BTreeNode {
 	BTreeObject[] keys; // An array of key values
@@ -19,8 +21,10 @@ public class BTreeNode {
  */
 	BTreeNode(Long location, int degree ){
        
-		this.degree=degree;
-        keys = new BTreeObject[2*degree - 1]; 
+        this.degree=degree;
+        BTreeObject empty = new BTreeObject(-1, 0);
+        keys = new BTreeObject[2*degree - 1];
+        Arrays.fill(keys,empty);
         children = new long [2*degree]; 
         leaf = true; //Every node starts as leaf
         this.location =location;
