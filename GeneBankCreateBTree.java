@@ -24,6 +24,7 @@ public class GeneBankCreateBTree {
     static int cacheSize;
     static GeneBankCreateBTree classTree;
     static int debugLevel;
+    static private FileRW TTfile;
     /**
      * Main method first catches argument errors then goes to readInputFile method
      */
@@ -92,6 +93,31 @@ public class GeneBankCreateBTree {
         }
         //@DanielMcDougall tree traversal
         
+    }
+
+    //written by Daniel 5/5
+    public static void traverseTree(BTreeNode r){
+        TTfile = tree.getDataFile();
+        if (r != null) {
+            Path filePath  = Paths.get("./txt");
+            for (int i = 0; i < r.getAmountOfChildren(); i++) {
+                if (i < r.getAmountOfChildren()) {
+                    traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
+                }
+                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i))))
+                + ": " + r.getValueAt(i));
+
+                try {
+                    Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
+                traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
+            }
+        }
+
     }
 
     

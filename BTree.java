@@ -187,7 +187,6 @@ catch (IOException e){
      }
 
  }
-
  /**
   * Returns RWFile with nodes
   * @return FileRW
@@ -195,6 +194,14 @@ catch (IOException e){
  public FileRW getFileRW(){
     return file;
 }
+ /**
+  * Returns root Node
+  * @return BtreeNode at the root
+  */
+ //written by Daniel 5/5
+ public BTreeNode getBase() {
+     return root;
+ }
 }
 
 
