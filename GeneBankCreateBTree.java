@@ -90,7 +90,7 @@ public class GeneBankCreateBTree {
             System.out.println("Error when makeing dump file");
             System.exit(1);
         }
-        //@TODO tree traversal
+        //@DanielMcDougall tree traversal
     }
 
     
@@ -124,7 +124,7 @@ public class GeneBankCreateBTree {
                         }
                    }
                    else if (origin == true){ //DNA
-                    grab = editLine.nextToken();
+                    grab = editLine.nextToken().toUpperCase();
                     if (grab.equals("//")){
                        //debug??
                         insertBinarySequence = binaryStringToLong(sequence); //add last sequence
@@ -133,9 +133,13 @@ public class GeneBankCreateBTree {
                         sequence = ""; // reset in case file has other DNA block
                         origin = false;
                      }
-                    //  else if{
+                      else if (grab.charAt(0) == 'A' || grab.charAt(0) == 'C' || grab.charAt(0) == 'G'
+                      || grab.charAt(0) == 'T'){
+                          for(int i =0; i < grab.length(); i++){
+                              if()
+                          }
 
-                    //  }
+                      }
 
 
                    }
