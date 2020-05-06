@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ListIterator;
 /**
  * Cache using linked list
  * @author Luke Ptomey
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 public class Cache <T> {
 	private LinkedList<T> createdCache;
 	private int cacheCapacity;
+	private FileRW store;
 	/**
 	 * Constructor
 	 * @param Cache size
@@ -15,6 +17,15 @@ public class Cache <T> {
 		cacheCapacity=specifiedSize;
 		createdCache= new LinkedList<>();
 	}
+
+	//Added method by @Jeremy.............................................................................
+	public Cache(int specifiedSize, FileRW store)
+	{
+		this.cacheCapacity = specifiedSize;
+		this.store = store;
+		this.createdCache = new LinkedList<T>();
+	}
+
 	/**
 	 * Returns capacity of cache
 	 * @return capacity of cache
@@ -87,5 +98,38 @@ public class Cache <T> {
 
 	}
 
+	//Added method by @Jeremy.............................................................................
+	public BTreeNode cacheQuery(long address)
+	{
+		boolean cacheHit = false;
+		T returnNode = null;
+		ListIterator<BTreeNode> iterator = (ListIterator<BTreeNode>) createdCache.listIterator();
+		while(iterator.hasNext() && !cacheHit)
+		{
+			returnNode = (T) iterator.next();
+			if(((BTreeNode) returnNode).getLocation() == address)
+			{
+				cacheHit = true;
+				iterator.remove();
+			}
+			if (cacheHit)
+			{
+				createdCache.addFirst(returnNode);
+				return (BTreeNode) returnNode;
+			}
+			else
+			{
+				returnNode = (T) store.getNode(address);
+				createdCache.addFirst(returnNode);
+				if(createdCache.size() > cacheCapacity)
+				{
+					createdCache.removeLast();
+				}
+				return (BTreeNode) returnNode;
+			}
+		}
+		//May be wrong type of return;
+		return null;
+	}
 
 }
