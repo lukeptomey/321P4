@@ -76,25 +76,29 @@ catch (IOException e){
 
          }
     
-//@lukeptomey Split is not allocating children correctly
+
     /**
      * Splits node if full
      * @param current node to split
-     * @param  child node location
+     * @param  child node location of full node
      */
-    public void split(BTreeNode x, int i){
+    public void split(BTreeNode x, int index){
+        //x is parent 
+        //y is left child full child
+        //z is right child
 
-        y = file.getNode(x.getChildAtIndex(i));
-        z = file.createNode(); //create node z and give it the largest t-1 keys
+        y = file.getNode(x.getChildAtIndex(index));
+        z = file.createNode(); //create node z
 		z.setLeaf(y.checkLeaf());
         z.setNumbOfChildren((degree-1));
        
-        
+        //Puts object from full node into right child
         for(int j=0; j < (degree-1 ); j++){ 
             z.setKeyAtIndex(j,y.getKeyAtIndex(j+degree));
         }
 
-        if(!y.checkLeaf()){ // give z coresponding t children of y
+            // Move parent node child pointers and add the right child node
+        if(!y.checkLeaf()){ 
             for(int j = 0; j < degree; j++) {
                 z.setChildAtIndex(j,file.getNode(y.getChildAtIndex(j+degree)));
             }
@@ -103,21 +107,21 @@ catch (IOException e){
         y.setKeyNumb(degree-1);
 
 
-
-        for(int j= x.getAmountOfKeys()+1 ; j > i+1; j-- ){ //insert z as a child of x
+        
+        for(int j= x.getAmountOfKeys()+1 ; j > index+1; j-- ){ //insert z as a child of x
             x.setChildAtIndex(j+1, file.getNode(x.getChildAtIndex(j)));
         }
-        x.setChildAtIndex((i=1), z); 
-        for(int j = x.getAmountOfKeys(); j > i+1; j--){ // move the median key from y up to x in order to separate y from z
+        x.setChildAtIndex((index+1), z); 
+        for(int j = x.getAmountOfKeys(); j > index; j--){ // move the median key from y up to x in order to separate y from z
             x.setKeyAtIndex( j+1,x.getKeyAtIndex(j));
         }
-       x.setKeyAtIndex( i+1,y.getKeyAtIndex(degree));
+       x.setKeyAtIndex( index,y.getKeyAtIndex(degree-1));
         x.setKeyNumb(x.getAmountOfKeys() +1);
         x.setNumbOfChildren(x.getAmountOfChildren()+1);
 
         //writing nodes to file
-        file.writeNode(y);
-        file.writeNode(z);
+        file.writeNode(y); 
+        file.writeNode(z); //correct
         file.writeNode(x);
     }
     
@@ -128,12 +132,12 @@ catch (IOException e){
      */
     public void insertNonFull(BTreeNode x, long key){
      
-        for(int i = 0; i < root.getAmountOfKeys(); i++)
+        for(int i = 0; i < x.getAmountOfKeys(); i++)
     {
-        if(key == root.getKeyAtIndex(i).dna)
+        if(key == x.getKeyAtIndex(i).dna)
         {
-            root.getKeyAtIndex(i).addFrequency(); //if there is duplicate increment frequency
-            file.writeNode(root);
+            x.getKeyAtIndex(i).addFrequency(); //if there is duplicate increment frequency
+            file.writeNode(x);
             return;
         }
     }
