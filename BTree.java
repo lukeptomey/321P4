@@ -75,18 +75,20 @@ catch (IOException e){
 
 
          }
-
+    
+//@lukeptomey Split is not allocating children correctly
     /**
      * Splits node if full
      * @param current node to split
      * @param  child node location
      */
     public void split(BTreeNode x, int i){
+
         y = file.getNode(x.getChildAtIndex(i));
         z = file.createNode(); //create node z and give it the largest t-1 keys
 		z.setLeaf(y.checkLeaf());
-        z.setNumbOfChildren(degree-1);
-        z.setNumbOfChildren(y.getAmountOfChildren()/2); // second child has half as many chilren as first
+        z.setNumbOfChildren((degree-1));
+       
         
         for(int j=0; j < (degree-1 ); j++){ 
             z.setKeyAtIndex(j,y.getKeyAtIndex(j+degree));
