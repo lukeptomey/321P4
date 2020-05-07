@@ -2,6 +2,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 
 /**
  * Class that reads and writes to random access file
@@ -140,7 +141,9 @@ public class FileRW {
 		}
 		readNode.setChildArray(grabChildren);
 
+		BTreeObject empty = new BTreeObject(-1, 0);
 		BTreeObject[] grabObjects = new BTreeObject [(2*degree) - 1]; //read keys 
+		Arrays.fill(grabObjects,empty);							//set empty values for keys
 		for(int i=0; i < readNode.getAmountOfKeys(); i++){
 			long tempDNA = randomFile.readLong();
 			int tempFrequency =randomFile.readInt();
