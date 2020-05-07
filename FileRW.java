@@ -78,7 +78,10 @@ public class FileRW {
 		}
 
 	}
-
+	/**
+	 * Grabs root node from random acess file
+	 * @return root node
+	 */
 	public BTreeNode getRootNode(){
 		try{
 			randomFile.seek(4);
@@ -129,6 +132,7 @@ public class FileRW {
 		readNode.setLocation(randomFile.readLong()); //read location
 		readNode.setNumbOfChildren(randomFile.readInt()); //read amount of children
 		readNode.setKeyNumb(randomFile.readInt()); //read amount of keys
+		readNode.setLeaf(randomFile.readBoolean()); //read leaf
 
 		long[] grabChildren = new long[(2*degree)-1]; //read children
 		for(int i=0; i < readNode.getAmountOfChildren(); i++ ){

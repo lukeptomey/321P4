@@ -57,6 +57,7 @@ catch (IOException e){
     }
     //check node if key exits, if so increase frequcy by one    
     if(root.getAmountOfKeys()== 2 *degree-1){
+
        newNode=file.createNode();
         file.setRootLocation(newNode.getLocation());
         newNode.setLeaf(false);
@@ -66,7 +67,7 @@ catch (IOException e){
         file.writeNode(newNode);
         split(newNode,0);
         insertNonFull(newNode,key);
-
+        root = newNode;
     }
        else{
         insertNonFull(root,key); 
@@ -141,11 +142,11 @@ catch (IOException e){
              x.setKeyAtIndex(i+1, x.getKeyAtIndex(i));
              i--;
           }
-        //@lukeptomey object is copying to all keys 
-        //  x.keys[i].dna=key;
-        //  x.keys[i].frequency=1;
-        //  x.setKeyNumb(x.getAmountOfKeys() +1);
-        //  file.writeNode(x);
+       
+        BTreeObject fill = new BTreeObject(key, 1);
+          x.setKeyAtIndex(i,fill);
+          x.setKeyNumb(x.getAmountOfKeys() +1);
+          file.writeNode(x);
          return; //done
      }
         else{
