@@ -144,8 +144,8 @@ catch (IOException e){
      // when reading from file fill null keys with empty object @lukeptomey
         int i = x.getAmountOfKeys();
         if (x.checkLeaf()){ //x is a leaf and nonfull, insert k into x directly
-         while(i>=0 && key < x.getKeyAtIndex(i).dna ){
-             x.setKeyAtIndex(i+1, x.getKeyAtIndex(i));
+         while(i>0 && key < x.getKeyAtIndex(i-1).dna ){
+             x.setKeyAtIndex(i, x.getKeyAtIndex(i-1));
              i--;
           }
        
