@@ -178,12 +178,24 @@ catch (IOException e){
    
       y=file.getNode(x.getChildAtIndex(i)); 
     }
+    
+    for(int l = 0; l < y.getAmountOfKeys(); l++)
+    {
+        if(key == y.getKeyAtIndex(l).dna)
+        {
+            y.getKeyAtIndex(l).addFrequency(); //if there is duplicate increment frequency
+            file.writeNode(y);
+            return;
+        }
+    }
+
      if(y.getAmountOfKeys()== (2*degree)-1){
          split(x, i); //split child of x into 2 nonfull children
          if(key > x.getKeyAtIndex(i).dna){ //determine which of the 2 children is the correct one
           i++;
          }
     }
+    y=file.getNode(x.getChildAtIndex(i)); // new fix
     insertNonFull(file.getNode(x.getChildAtIndex(i)),key); //recurses to insert k into subtree
  }
 /**

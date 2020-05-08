@@ -135,7 +135,7 @@ public class FileRW {
 		readNode.setKeyNumb(randomFile.readInt()); //read amount of keys
 		readNode.setLeaf(randomFile.readBoolean()); //read leaf
 
-		long[] grabChildren = new long[(2*degree)-1]; //read children
+		long[] grabChildren = new long[(2*degree)]; //read children
 		for(int i=0; i < readNode.getAmountOfChildren(); i++ ){
 			grabChildren[i]= randomFile.readLong();
 		}
