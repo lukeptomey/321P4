@@ -30,6 +30,7 @@ public class GeneBankCreateBTree {
      * Main method first catches argument errors then goes to readInputFile method
      */
     public static void main (final String[] args){
+        long startTime = System.nanoTime();
     
         // args size
 
@@ -80,6 +81,10 @@ public class GeneBankCreateBTree {
         //CREATE CACHE 
     }
     readInputFile(sequenceLength, gbkFileName);
+    long endTime = System.nanoTime();
+    long seconds= (endTime-startTime)/1000000000;
+    System.out.println("Seconds: " + seconds);
+    System.out.println(endTime-startTime);
     // if user wants debugLevel 1
     if(debugLevel==1){
         File dump = new File("dump.txt");
