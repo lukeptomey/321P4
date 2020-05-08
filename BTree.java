@@ -90,7 +90,7 @@ catch (IOException e){
         y = file.getNode(x.getChildAtIndex(index));
         z = file.createNode(); //create node z
 		z.setLeaf(y.checkLeaf());
-        z.setNumbOfChildren((degree-1));
+        z.setKeyNumb(degree-1);
        
         //Puts object from full node into right child
         for(int j=0; j < (degree-1 ); j++){ 
