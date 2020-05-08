@@ -2,7 +2,7 @@
 * Lab 4
 * CS 321
 * 05/07/2020
-* Luke Ptomey, Jeremy Bouchard, Daniel McDougal
+* Luke Ptomey, Jeremy Bouchard, Daniel McDougall
 **************** 
 
 OVERVIEW:
