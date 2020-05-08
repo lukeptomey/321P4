@@ -102,7 +102,7 @@ public class GeneBankCreateBTree {
      */
      public static void traverseTree(BTreeNode r)
      {
-         TTfile = tree.getDataFile();
+         TTfile = tree.getFileRW();
          if (r != null) {
              Path filePath  = Paths.get("./txt");
              for (int i = 0; i < r.getAmountOfChildren(); i++) {
