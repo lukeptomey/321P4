@@ -98,124 +98,108 @@ public class GeneBankCreateBTree {
             System.exit(1);
         }
         //@DanielMcDougall tree traversal
-        traverseTree(tree.getBase());
+        treePrinter(tree.getBase());
     }
     System.out.println("Dump File Created");
 }
 
 /**
-	 * Decides the current DNA character
-	 * 
-	 * @param appendStr
-	 *            current string to append to
-	 * @param firstChar
-	 *            first binary number
-	 * @param secondChar
-	 *            second binary number
-	 * @return The DNA character matching the given binary numbers
+	 * Figures out DNA character given a binary input
+	 * @param dnastr
+	 * @param binary1
+	 * @param binary2
+	 * @return The correct dna character from binary
 	 */
-	public static String BinaryToString(String appendStr, int firstChar, int secondChar) {
-		String retVal = appendStr;
-
-		if (firstChar == 0 && secondChar == 0) {
-			retVal += "A";
-		} else if (firstChar == 1 && secondChar == 1) {
-			retVal += "T";
-		} else if (firstChar == 0 && secondChar == 1) {
-			retVal += "C";
-		} else if (firstChar == 1 && secondChar == 0) {
-			retVal += "G";
+	public static String binToDna(String dnastr, int binary1, int binary2) {
+		String convert = dnastr;
+		if (binary1 == 0 && binary2 == 0) {
+			convert += "A";
+		} else if (binary1 == 0 && binary2 == 1) {
+			convert += "C";
+		} else if (binary1 == 1 && binary2 == 1) {
+			convert += "T";
+		} else if (binary1 == 1 && binary2 == 0) {
+			convert += "G";
 		}
-
-		return retVal;
+		return convert;
 	}
 
 /**
- * Finds the number of zeros to the left of the sequence
- * @param binaryIn
- * @return
+ * returns the number of zeros on the left side of the dna sequence
+ * @param binary
+ * @return string conversion of zero checks
  */
-private static String checkZeros(String binaryIn) {
-    String retVal = binaryIn;
-    if (retVal.length() != (sequenceLength * 2)) {
-
-        String temp = retVal;
-        retVal = "";
-        int diff = (sequenceLength * 2) - temp.length();
+private static String zeroCount(String binary) {
+    String convert = binary;
+    if (convert.length() != (sequenceLength * 2)) {
+        String adder = convert;
+        convert = "";
+        int diff = (sequenceLength * 2) - adder.length();
         for (int i = 0; i < diff; i++) {
-            retVal += "0";
+            convert += "0";
         }
-        retVal += temp;
-        return retVal;
+        convert += adder;
+        return convert;
     }
-
-    return retVal;
+    return convert;
 }
 
 /**
-	 * Converts a given binary sequence of type String to its DNA character
-	 * representation.
-	 * 
+	 * given a binary string, will return dna character pairs
 	 * @param binString
-	 *            The binary sequence in form of a String.
-	 * @return The DNA character representation of the binary sequence
+	 * @return dna character pairs
 	 */
-	public static String convertToCharSeq(String binString) {
-		String retVal = "";
-		int firstC = 2; // to represent binary numbers 1 & 0
-		int secondC = 2;// 2 is default or error
-		int cCount = 0;
-		// loop through the binary string and grab the
-		// the characters in "pairs". This is done with the
-		// cCount variable, a properly formatted binString
-		// will always be an even number of characters
+	public static String binToPairs(String binString) {
+		String convert = "";
+		int pairItem1 = 2; // to represent binary numbers 1 & 0
+		int Item2 = 2;// 2 is default or error
+		int pairCount = 0;
 		for (int i = 0; i < binString.length(); i++) {
-			// if both characters found decide the character
-			// and reset values
-			if (cCount == 2) {
-				retVal = BinaryToString(retVal, firstC, secondC);
-				firstC = 2;
-				secondC = 2;
-				cCount = 0;
+            // find pairs if possible
+            // revert the variables back to their original state
+			if (pairCount == 2) {
+				convert = binToDna(convert, pairItem1, Item2);
+				pairItem1 = 2;
+				Item2 = 2;
+				pairCount = 0;
 			}
-			// grab the first and second characters and increment count
-			if (cCount == 1) {
+			// add to pairCount when pairs are found
+			if (pairCount == 1) {
 				String tmp1 = "" + binString.charAt(i);
-				secondC = Integer.parseInt(tmp1);
-				cCount++;
-			} else if (cCount == 0) {
+				Item2 = Integer.parseInt(tmp1);
+				pairCount++;
+			} else if (pairCount == 0) {
 				String tmp0 = "" + binString.charAt(i);
-				firstC = Integer.parseInt(tmp0);
-				cCount++;
-			} else {
-				if (debugLevel == 0) {
-					System.err.println("ERROR: convertToCharSeq!");
-				}
-			}
-
+				pairItem1 = Integer.parseInt(tmp0);
+				pairCount++;
+			} //else {
+				//if (debugLevel == 0) {
+				//	System.err.println("ERROR: binToPairs!");
+				//}
+			//}
 		}
-		// now decide the last character in the substring
-		retVal = BinaryToString(retVal, firstC, secondC);
-		// and return the DNA subString
-		return retVal.toLowerCase();
+		convert = binToDna(convert, pairItem1, Item2);
+		return convert.toLowerCase();
 	}
 
-    //written by Daniel 5/5
     /**
-     * 
+     * Uses prior methods to transform tree input into 
+     * dump file output as requested. 
      */
-     public static void traverseTree(BTreeNode r)
+     public static void treePrinter(BTreeNode r)
      {
          TTfile = tree.getFileRW();
          if (r != null) {
+             //specifies dump file location to print to
              Path filePath  = Paths.get("./dump.txt");
              for (int i = 0; i < r.getAmountOfChildren(); i++) {
                  if (i < r.getAmountOfChildren()) {
-                     traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
+                     treePrinter(TTfile.getNode(r.getChildAtIndex(i)));
                 }
-                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i).dna)))
+                //use standard java functions to turn tree into dna sequence
+                List<String> strings = Arrays.asList(binToPairs(zeroCount(Long.toBinaryString(r.getKeyAtIndex(i).dna)))
                 + ": " + r.getKeyAtIndex(i).frequency);
-
+                // append characters to the file writer for printing
                 try {
                     Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
                 } catch (IOException e) {
@@ -223,7 +207,7 @@ private static String checkZeros(String binaryIn) {
                 }
             }
             if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
-                traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
+                treePrinter(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
             }
         }
 
@@ -363,13 +347,13 @@ public GeneBankCreateBTree(){
      */
     static long binaryStringToLong(final String binaryString){
         final char[] bits = binaryString.toCharArray();
-        long retVal=0;
+        long convert=0;
         for(int i = bits.length - 1; i >= 0; i--){
             if (bits[i] == '1'){
-                retVal += (long) Math.pow(2,(bits.length -i -1));
+                convert += (long) Math.pow(2,(bits.length -i -1));
             }
         }
-        return retVal;
+        return convert;
     }
   
 
