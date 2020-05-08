@@ -97,34 +97,131 @@ public class GeneBankCreateBTree {
     }
 }
 
+/**
+	 * Decides the current DNA character
+	 * 
+	 * @param appendStr
+	 *            current string to append to
+	 * @param firstChar
+	 *            first binary number
+	 * @param secondChar
+	 *            second binary number
+	 * @return The DNA character matching the given binary numbers
+	 */
+	public static String BinaryToString(String appendStr, int firstChar, int secondChar) {
+		String retVal = appendStr;
+
+		if (firstChar == 0 && secondChar == 0) {
+			retVal += "A";
+		} else if (firstChar == 1 && secondChar == 1) {
+			retVal += "T";
+		} else if (firstChar == 0 && secondChar == 1) {
+			retVal += "C";
+		} else if (firstChar == 1 && secondChar == 0) {
+			retVal += "G";
+		}
+
+		return retVal;
+	}
+
+/**
+ * Finds the number of zeros to the left of the sequence
+ * @param binaryIn
+ * @return
+ */
+private static String checkZeros(String binaryIn) {
+    String retVal = binaryIn;
+    if (retVal.length() != (sequenceLength * 2)) {
+
+        String temp = retVal;
+        retVal = "";
+        int diff = (sequenceLength * 2) - temp.length();
+        for (int i = 0; i < diff; i++) {
+            retVal += "0";
+        }
+        retVal += temp;
+        return retVal;
+    }
+
+    return retVal;
+}
+
+/**
+	 * Converts a given binary sequence of type String to its DNA character
+	 * representation.
+	 * 
+	 * @param binString
+	 *            The binary sequence in form of a String.
+	 * @return The DNA character representation of the binary sequence
+	 */
+	public static String convertToCharSeq(String binString) {
+		String retVal = "";
+		int firstC = 2; // to represent binary numbers 1 & 0
+		int secondC = 2;// 2 is default or error
+		int cCount = 0;
+		// loop through the binary string and grab the
+		// the characters in "pairs". This is done with the
+		// cCount variable, a properly formatted binString
+		// will always be an even number of characters
+		for (int i = 0; i < binString.length(); i++) {
+			// if both characters found decide the character
+			// and reset values
+			if (cCount == 2) {
+				retVal = BinaryToString(retVal, firstC, secondC);
+				firstC = 2;
+				secondC = 2;
+				cCount = 0;
+			}
+			// grab the first and second characters and increment count
+			if (cCount == 1) {
+				String tmp1 = "" + binString.charAt(i);
+				secondC = Integer.parseInt(tmp1);
+				cCount++;
+			} else if (cCount == 0) {
+				String tmp0 = "" + binString.charAt(i);
+				firstC = Integer.parseInt(tmp0);
+				cCount++;
+			} else {
+				if (debugLevel == 0) {
+					System.err.println("ERROR: convertToCharSeq!");
+				}
+			}
+
+		}
+		// now decide the last character in the substring
+		retVal = BinaryToString(retVal, firstC, secondC);
+		// and return the DNA subString
+		return retVal.toLowerCase();
+	}
+
     //written by Daniel 5/5
     /**
      * 
      */
-//      public static void traverseTree(BTreeNode r)
-//      {
-//          TTfile = tree.getFileRW();
-//          if (r != null) {
-//              Path filePath  = Paths.get("./txt");
-//              for (int i = 0; i < r.getAmountOfChildren(); i++) {
-//                  if (i < r.getAmountOfChildren()) {
-//                      traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
-//                 }
-//                 List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i))))
-//                 + ": " + r.getValueAtIndex(i));
+     public static void traverseTree(BTreeNode r)
+     {
+         TTfile = tree.getFileRW();
+         if (r != null) {
+             Path filePath  = Paths.get("./txt");
+             for (int i = 0; i < r.getAmountOfChildren(); i++) {
+                 if (i < r.getAmountOfChildren()) {
+                     traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
+                }
+                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i).frequency)))
+                + ": " + r.getKeyAtIndex(i).frequency);
 
-//                 try {
-//                     Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
-//                 } catch (IOException e) {
-//                     e.printStackTrace();
-//                 }
-//             }
-//             if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
-//                 traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
-//             }
-//         }
+                try {
+                    Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
+                traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
+            }
+        }
 
-// }
+}
 
     /**
      * Parses gbk file and puts sequences in BTree
