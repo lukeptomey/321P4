@@ -93,8 +93,9 @@ public class GeneBankCreateBTree {
             System.exit(1);
         }
         //@DanielMcDougall tree traversal
-        
+        traverseTree(tree.getBase());
     }
+    System.out.println("Dump File Created");
 }
 
 /**
