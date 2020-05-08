@@ -112,7 +112,7 @@ catch (IOException e){
             x.setChildAtIndex(j+1, file.getNode(x.getChildAtIndex(j)));
         }
         x.setChildAtIndex((index+1), z); 
-        for(int j = x.getAmountOfKeys(); j > index; j--){ // move the median key from y up to x in order to separate y from z
+        for(int j = x.getAmountOfKeys()-1; j >= index; j--){ // move the median key from y up to x in order to separate y from z
             x.setKeyAtIndex( j+1,x.getKeyAtIndex(j));
         }
        x.setKeyAtIndex( index,y.getKeyAtIndex(degree-1));
@@ -144,8 +144,9 @@ catch (IOException e){
   
         int i = x.getAmountOfKeys(); //number of keys
         if (x.checkLeaf()){ //x is a leaf and nonfull, insert k into x directly
+            if(i!=0){
             while(i>0 && key < x.getKeyAtIndex(i-1).dna ){
-                x.setKeyAtIndex(i+1, x.getKeyAtIndex(i));
+                x.setKeyAtIndex(i, x.getKeyAtIndex(i-1));
              i--;
           }
        
@@ -154,7 +155,18 @@ catch (IOException e){
           x.setKeyNumb(x.getAmountOfKeys() +1);
           file.writeNode(x);
          return; //done
-     }
+        }
+        else{
+       
+        BTreeObject fill = new BTreeObject(key, 1);
+          x.setKeyAtIndex(i,fill);
+          x.setKeyNumb(x.getAmountOfKeys() +1);
+          file.writeNode(x);
+         return; //done
+        }
+
+
+    }
     // not finding right child to insert to @lukeptomey
         else{
            while(i>0 && key < x.getKeyAtIndex(i-1).dna ){  //find x'x child x.xi to hold the key k

@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class BTreeNode {
     BTreeObject[] keys; // An array of key values
-    long[] values;  //added by DANIELMCD 5/7
+  //  long[] values;  //added by DANIELMCD 5/7
     int degree; // Minimum degree 
     long children[] ; // An array of child pointers 
     boolean leaf; // Whether node is leaf
@@ -21,7 +21,7 @@ public class BTreeNode {
  * @param degree t
  */
 	BTreeNode(Long location, int degree ){
-        values = new long[(2*degree)-1];
+        //values = new long[(2*degree)-1];
         this.degree=degree;
         BTreeObject empty = new BTreeObject(-1, 0);
         keys = new BTreeObject[2*degree - 1];
@@ -120,9 +120,9 @@ public class BTreeNode {
    * @param i index
    * @return value of key at index
    */
-  public BTreeObject getValueAtIndex(int i){
-      return values[i];
-  }
+//   public BTreeObject getValueAtIndex(int i){
+//       return values[i];
+//   }
 
   /**
    * Sets location of node

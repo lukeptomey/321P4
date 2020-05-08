@@ -27,7 +27,7 @@ public class FileRW {
 		randomFile = new RandomAccessFile(gbkFileName, "r");// Create read file
 		randomFile.seek(0); //go to begining of file
 		degree=randomFile.readInt();
-		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;
+		byteLength =((2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12)*2;
 	}
 
 /**
