@@ -41,13 +41,25 @@ COMPILING AND RUNNING:
 
 
 PROGRAM DESIGN AND IMPORTANT CONCEPTS:
-
+Our b-tree class does not deviate much from the pseudo code given in class. However we had to encapsulate the frequency and 
+the binary number inside of an BTreeObject class. Also, we had to add code to check for duplicates in the btree class.
+We did this by checking all of the keys in each node when needed to increment the frequency. When using the random
+access file we appended each node to the end of the file when writing to it. The length in bytes for each node
+is (degrees^2) *12. Even thought this is a little larger than it needs to be, we overestimated to be safe. The
+GeneBankCreateBTree class parses all of the arguments given by the user, converts the DNA strings to binary longs and
+inserts the longs into the tree. The GeneBankSearch class uses the tree's search method to find a sequence in the tree.
+Since we were not able to fully fix the GeneBankCreateBTree class we could not test the functionality of this class.
 
  
 
 TESTING:
-//this doesn't fully work, but using high degree, everything fully works, but running will take a while
-//Used degree 50 and sequence 31 on file 1, everything worked
+This doesn't fully work with low degrees, but using high degree, everything fully works, but running will take a while.
+When using degree 50 and sequence 31 on GBKfile 1 (No Cache) all the sequences are inserted. It about 50-60 seconds on average
+to insert all of the sequences. The probable reason why using low degrees does not work is that splitting a node
+at one point eventualy breaks a b-tree property, or a location is being lost in the test.gbk.btree.data file. We primarly
+tested by running the programs with different inputs and using the debugger, but the problem was locating where a btree property breaks
+before the program crashes. In hindsight we should have created a test program. Overall, it was hard debugging after so many sequences
+were inserted into the tree
 
  
 

@@ -84,7 +84,7 @@ public class GeneBankCreateBTree {
     long endTime = System.nanoTime();
     long seconds= (endTime-startTime)/1000000000;
     System.out.println("Seconds: " + seconds);
-    System.out.println(endTime-startTime);
+  
     // if user wants debugLevel 1
     if(debugLevel==1){
         File dump = new File("dump.txt");

@@ -43,7 +43,7 @@ public class FileRW {
 		randomFile.writeInt(degree); // Degree is at offset 0
 		randomFile.writeLong(0); // root location is at offset 4
 		endOfFile = randomFile.getFilePointer();
-		byteLength =(2 * degree - 1) * 8 + (2 * degree - 1) * 4 + (2 * degree * 4) + 12;
+		byteLength =degrees*degrees*12 ;
 		
 	}
 	/**
