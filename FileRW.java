@@ -1,5 +1,3 @@
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
@@ -74,7 +72,6 @@ public class FileRW {
 			randomFile.writeLong(i);
 		}
 		 catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -89,7 +86,6 @@ public class FileRW {
 			return getNode(randomFile.readLong());
 		}
 		catch	(IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
 		}
