@@ -91,12 +91,15 @@ catch (IOException e){
         z = file.createNode(); //create node z
 		z.setLeaf(y.checkLeaf());
         z.setKeyNumb(degree-1);
+        z.setNumbOfChildren(y.getAmountOfChildren()/2);
        
         //Puts object from full node into right child
         for(int j=0; j < (degree-1 ); j++){ 
             z.setKeyAtIndex(j,y.getKeyAtIndex(j+degree));
         }
 
+
+        //Never used problem @lukeptomey
             // Move parent node child pointers and add the right child node
         if(!y.checkLeaf()){ 
             for(int j = 0; j < degree; j++) {
