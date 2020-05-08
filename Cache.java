@@ -99,6 +99,7 @@ public class Cache <T> {
 	}
 
 	//Added method by @Jeremy.............................................................................
+	@SuppressWarnings("unchecked")
 	public BTreeNode cacheQuery(long address)
 	{
 		boolean cacheHit = false;
