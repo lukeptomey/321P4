@@ -208,7 +208,7 @@ private static String checkZeros(String binaryIn) {
                  if (i < r.getAmountOfChildren()) {
                      traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
                 }
-                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i).frequency)))
+                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i).dna)))
                 + ": " + r.getKeyAtIndex(i).frequency);
 
                 try {
