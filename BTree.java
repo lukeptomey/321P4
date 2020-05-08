@@ -116,7 +116,7 @@ catch (IOException e){
             x.setKeyAtIndex( j+1,x.getKeyAtIndex(j));
         }
        x.setKeyAtIndex( index,y.getKeyAtIndex(degree-1));
-        x.setKeyNumb(x.getAmountOfKeys() +1);
+       x.setKeyNumb(x.getAmountOfKeys() +1);
         x.setNumbOfChildren(x.getAmountOfChildren()+1);
 
         //writing nodes to file
@@ -142,10 +142,10 @@ catch (IOException e){
         }
     }
   
-        int i = x.getAmountOfKeys();
+        int i = x.getAmountOfKeys(); //number of keys
         if (x.checkLeaf()){ //x is a leaf and nonfull, insert k into x directly
-         while(i>0 && key < x.getKeyAtIndex(i-1).dna ){
-             x.setKeyAtIndex(i, x.getKeyAtIndex(i-1));
+            while(i>0 && key < x.getKeyAtIndex(i-1).dna ){
+                x.setKeyAtIndex(i+1, x.getKeyAtIndex(i));
              i--;
           }
        
@@ -155,7 +155,7 @@ catch (IOException e){
           file.writeNode(x);
          return; //done
      }
-    
+    // not finding right child to insert to @lukeptomey
         else{
            while(i>0 && key < x.getKeyAtIndex(i-1).dna ){  //find x'x child x.xi to hold the key k
               i--;

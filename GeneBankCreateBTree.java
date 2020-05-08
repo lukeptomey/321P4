@@ -25,6 +25,7 @@ public class GeneBankCreateBTree {
     static GeneBankCreateBTree classTree;
     static int debugLevel;
     static private FileRW TTfile;
+    static int insertCount =0; //number of complete inserts
     /**
      * Main method first catches argument errors then goes to readInputFile method
      */
@@ -175,7 +176,9 @@ public class GeneBankCreateBTree {
                                   }
 
                                   if(!sequence.contains("n")){
+
                                       tree.insert(insertBinarySequence);
+                                      insertCount++;
                                   }
 
                                   sequence = ""; //reset sequence
