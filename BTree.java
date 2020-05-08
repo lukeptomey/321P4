@@ -107,8 +107,8 @@ catch (IOException e){
         y.setKeyNumb(degree-1);
 
 
-        
-        for(int j= x.getAmountOfKeys()+1 ; j > index+1; j-- ){ //insert z as a child of x
+     
+        for(int j= x.getAmountOfKeys() ; j > index; j-- ){ //insert z as a child of x
             x.setChildAtIndex(j+1, file.getNode(x.getChildAtIndex(j)));
         }
         x.setChildAtIndex((index+1), z); 
@@ -141,7 +141,7 @@ catch (IOException e){
             return;
         }
     }
-     // when reading from file fill null keys with empty object @lukeptomey
+  
         int i = x.getAmountOfKeys();
         if (x.checkLeaf()){ //x is a leaf and nonfull, insert k into x directly
          while(i>0 && key < x.getKeyAtIndex(i-1).dna ){
@@ -155,7 +155,7 @@ catch (IOException e){
           file.writeNode(x);
          return; //done
      }
-     //insert is broken @lukeptomey
+    
         else{
            while(i>0 && key < x.getKeyAtIndex(i-1).dna ){  //find x'x child x.xi to hold the key k
               i--;
