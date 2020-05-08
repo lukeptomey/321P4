@@ -203,7 +203,7 @@ private static String checkZeros(String binaryIn) {
      {
          TTfile = tree.getFileRW();
          if (r != null) {
-             Path filePath  = Paths.get("./txt");
+             Path filePath  = Paths.get("./dump.txt");
              for (int i = 0; i < r.getAmountOfChildren(); i++) {
                  if (i < r.getAmountOfChildren()) {
                      traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
