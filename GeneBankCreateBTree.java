@@ -95,33 +95,34 @@ public class GeneBankCreateBTree {
         //@DanielMcDougall tree traversal
         
     }
+}
 
     //written by Daniel 5/5
-    // public static void traverseTree(BTreeNode r){
-    //     TTfile = tree.getDataFile();
-    //     if (r != null) {
-    //         Path filePath  = Paths.get("./txt");
-    //         for (int i = 0; i < r.getAmountOfChildren(); i++) {
-    //             if (i < r.getAmountOfChildren()) {
-    //                 traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
-    //             }
-    //             List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i))))
-    //             + ": " + r.getValueAt(i));
+    /**
+     * 
+     */
+     public static void traverseTree(BTreeNode r)
+     {
+         TTfile = tree.getFileRW();
+         if (r != null) {
+             Path filePath  = Paths.get("./txt");
+             for (int i = 0; i < r.getAmountOfChildren(); i++) {
+                 if (i < r.getAmountOfChildren()) {
+                     traverseTree(TTfile.getNode(r.getChildAtIndex(i)));
+                }
+                List<String> strings = Arrays.asList(convertToCharSeq(checkZeros(Long.toBinaryString(r.getKeyAtIndex(i))))
+                + ": " + r.getValueAtIndex(i));
 
-    //             try {
-    //                 Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
-    //             } catch (IOException e) {
-    //                 e.printStackTrace();
-    //             }
-    //         }
-    //         if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
-    //             traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
-    //         }
-    //     }
-
-    // }
-
-    
+                try {
+                    Files.write(filePath, strings, Charset.forName("UTF-8"),StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (r.getAmountOfKeys() < r.getAmountOfChildren()) {
+                traverseTree(TTfile.getNode(r.getChildAtIndex(r.getAmountOfKeys())));
+            }
+        }
 
 }
 
