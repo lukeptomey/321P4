@@ -46,6 +46,8 @@ PROGRAM DESIGN AND IMPORTANT CONCEPTS:
  
 
 TESTING:
+//this doesn't fully work, but using high degree, everything fully works, but running will take a while
+//Used degree 50 and sequence 31 on file 1, everything worked
 
  
 
