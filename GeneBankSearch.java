@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * Reads string sequences from a query file and searches a BTree file for matches.

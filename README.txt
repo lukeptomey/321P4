@@ -21,6 +21,7 @@ INCLUDED FILES:
  * FileRW.java - Allows for the manipulation of files provided by the user.
  * GeneBankCreateBTree.java - Handles the creation of the BTree from the user input.
  * GeneBankSearch.java - Allows for the BTree to be searched and lets the user search the BTree.
+ * treePrinter.java - Allows the BTree to convert to ACTG sequences that can be printed in a dump file
  * README - this file
 
 
