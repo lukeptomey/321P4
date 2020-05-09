@@ -90,7 +90,7 @@ public class GeneBankCreateBTree {
             System.exit(1);
         }
         //@DanielMcDougall tree traversal
-        treePrinter myTreePrint = new treePrinter();
+        TreePrinter myTreePrint = new TreePrinter();
         myTreePrint.treePrint(tree.getBase(), tree, sequenceLength);
     }
     System.out.println("Dump File Created");

@@ -13,8 +13,8 @@ import java.util.List;
  * and print them as requested with treePrint. Invoked in
  * genebankcreatebtree
  */
-public class treePrinter {
-    static treePrinter tp;
+public class TreePrinter {
+    static TreePrinter tp;
 
 	/**
 	 * constructor for treePrint. needed because constructors cannot be recursive methods
@@ -22,13 +22,13 @@ public class treePrinter {
 	 * @param B
 	 * @param seqLength
 	 */
-    treePrinter(BTreeNode root,BTree B, int seqLength){
+    TreePrinter(BTreeNode root,BTree B, int seqLength){
         tp.treePrint(root,B,seqLength);
 	}
 	
 	// needed because a constructor with no paramaters must be located for Java,
 	//otherwise the wanted constructor wont work
-	treePrinter(){
+	TreePrinter(){
 	}
 
 	/**
